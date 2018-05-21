@@ -3,11 +3,11 @@ import axios from "axios";
 import PropertyCard from "./PropertyCard";
 
 export default class PropertyList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { properties: [] };
-  }
-  componentWillMount = () => {
+  state = {
+    properties: []
+  };
+
+  componentDidMount = () => {
     axios.get("/properties").then(response => {
       this.setState({ properties: response.data });
     });

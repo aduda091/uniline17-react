@@ -9,7 +9,7 @@ export default class PropertyCard extends Component {
           <div className="card-header">
             <h5>{this.props.destination}</h5>
           </div>
-          <Link to={"/" + this.props.id}>
+          <Link to={"/property/" + this.props.id}>
             <img
               className="card-img-top"
               src={"https://loremflickr.com/320/240/sea?lock=" + this.props.id}

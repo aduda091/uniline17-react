@@ -13,7 +13,7 @@ export default class PropertyDetails extends Component {
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     axios.get("/properties/" + this.propertyId).then(res => {
       let property = res.data;
       this.setState({

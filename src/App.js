@@ -15,7 +15,11 @@ class App extends Component {
           </header>
           <main>
             <Route exact path="/" component={PropertyList} />
-            <Route exact path="/:propertyId" component={PropertyDetails} />
+            <Route
+              exact
+              path="/property/:propertyId"
+              component={PropertyDetails}
+            />
           </main>
         </div>
       </Router>
