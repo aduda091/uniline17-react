@@ -1,20 +1,35 @@
 import React, { Component } from "react";
 import axios from "axios";
 import PropertyCard from "./PropertyCard";
+import PropertySearchForm from "./PropertySearchForm";
 
 export default class PropertyList extends Component {
   state = {
     properties: [],
     foundProperties: [],
-    searchTerm: ""
+    searchTerm: "",
+    destinations: [],
+    selectedDestination: ""
   };
 
   componentDidMount = () => {
     axios.get("/properties").then(response => {
-      this.setState({
-        properties: response.data,
-        foundProperties: response.data
-      });
+      this.setState(
+        {
+          properties: response.data,
+          foundProperties: response.data
+        },
+        () => {
+          let destinations = [];
+          this.state.properties.forEach(property => {
+            let destination = property.destination;
+            if (!destinations.includes(destination))
+              destinations.push(destination);
+          });
+
+          this.setState({ destinations });
+        }
+      );
     });
   };
 
@@ -38,7 +53,7 @@ export default class PropertyList extends Component {
     let properties = this.state.foundProperties;
     let itemsToDisplay;
     if (properties.length) {
-      itemsToDisplay = properties.map((property, index) => (
+      itemsToDisplay = properties.map(property => (
         <PropertyCard
           name={property.name}
           destination={property.destination}
@@ -54,19 +69,13 @@ export default class PropertyList extends Component {
         <div className="jumbotron">
           <div className="container">
             <h1 className="text-center mb-3">Kalkulacija cijene smještaja</h1>
-            <p className="form-row justify-content-md-center">
-              <input
-                type="text"
-                className="form-control col-sm-12 col-md-6 form-control-lg"
-                name="searchTerm"
-                id="searchTerm"
-                placeholder="Pretraga"
-                onChange={this.handleSearchChange}
-              />
-            </p>
+            <PropertySearchForm
+              change={this.handleSearchChange}
+              destinations={this.state.destinations}
+            />
             {!itemsToDisplay && (
               <div className="alert alert-warning" role="alert">
-                Nema rezultata pretrage!
+                Nema pronađenih rezultata!
               </div>
             )}
           </div>

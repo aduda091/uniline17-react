@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 export default () => {
   return (
-    <nav className="navbar navbar-expand-md fixed-top">
-      <a className="navbar-brand" href="/">
+    <nav className="navbar navbar-expand-md">
+      <Link to="/" className="navbar-brand">
         <img
           src="http://static.uniline-cdn.eu/images/2016/logo.png"
           alt="Uniline logo"
           height="40px"
         />
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
