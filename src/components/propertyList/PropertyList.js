@@ -46,7 +46,26 @@ export default class PropertyList extends Component {
     } else {
       foundProperties = allProperties;
     }
-    this.setState({ foundProperties });
+    this.setState({
+      foundProperties,
+      searchTerm: term,
+      selectedDestination: "sve"
+    });
+  };
+
+  handleDestinationChange = e => {
+    let selectedDestination = e.target.value;
+    const shownProperties = this.state.properties;
+    let foundProperties;
+    if (selectedDestination === "sve" || selectedDestination === "") {
+      foundProperties = shownProperties;
+    } else {
+      foundProperties = shownProperties.filter(property => {
+        return property.destination === selectedDestination;
+      });
+    }
+
+    this.setState({ foundProperties, selectedDestination, searchTerm: "" });
   };
 
   render() {
@@ -70,8 +89,11 @@ export default class PropertyList extends Component {
           <div className="container">
             <h1 className="text-center mb-3">Kalkulacija cijene smještaja</h1>
             <PropertySearchForm
-              change={this.handleSearchChange}
               destinations={this.state.destinations}
+              searchTerm={this.state.searchTerm}
+              selectedDestination={this.state.selectedDestination}
+              searchChange={this.handleSearchChange}
+              destinationChange={this.handleDestinationChange}
             />
             {!itemsToDisplay && (
               <div className="alert alert-warning" role="alert">
