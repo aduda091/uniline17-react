@@ -5,6 +5,6 @@ import App from "./App";
 import axios from "axios";
 import registerServiceWorker from "./registerServiceWorker";
 
-axios.defaults.baseURL = "http://uniline-17.herokuapp.com/api";
+axios.defaults.baseURL = "https://uniline-17.herokuapp.com/api";
 ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
